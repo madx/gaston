@@ -16,4 +16,5 @@ type BotCommandBuilder = (bot: Bot) => BotCommand;
 
 export { default as deploy } from "./deploy";
 export { default as roll } from "./roll";
+export { default as say } from "./say";
 export type { BotCommand, BotCommandBuilder };

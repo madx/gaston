@@ -1,7 +1,7 @@
-import { PermissionFlagsBits } from "discord.js"
-import { pick } from "../utils"
-import { BotCommandBuilder } from "./"
-import { Availability, Bot } from "../bot"
+import { PermissionFlagsBits } from "discord.js";
+import { Availability, Bot } from "../bot";
+import { pick } from "../utils";
+import { BotCommandBuilder } from "./";
 
 const command: BotCommandBuilder = function deploy(bot) {
   return {
@@ -10,9 +10,9 @@ const command: BotCommandBuilder = function deploy(bot) {
     availability: bot.AVAILABILITY.BOT_MASTER,
 
     async execute(interaction) {
-      const { commands, guild } = bot
+      const { commands, guild } = bot;
 
-      const commandList = [...commands.values()]
+      const commandList = [...commands.values()];
 
       // Create commands, private by default
       await guild.commands.set(
@@ -24,27 +24,28 @@ const command: BotCommandBuilder = function deploy(bot) {
               command.availability,
             ),
         })),
-      )
+      );
 
-      await interaction.reply("🤖 Commands deployed!")
+      await interaction.reply("🤖 Commands deployed!");
     },
-  }
-}
+  };
+};
 
+// TODO: This is not really suited everywhere, it would be better to comeup with something simpler/more configuratble
 function convertAvailabilityToDefaultMemberPermissions(
   bot: Bot,
   availability: Availability,
 ) {
   switch (availability) {
     case bot.AVAILABILITY.PUBLIC:
-      return PermissionFlagsBits.UseApplicationCommands
+      return PermissionFlagsBits.UseApplicationCommands;
     case bot.AVAILABILITY.MOD:
-      return PermissionFlagsBits.KickMembers
+      return PermissionFlagsBits.KickMembers;
     case bot.AVAILABILITY.ADMIN:
-      return PermissionFlagsBits.Administrator
+      return PermissionFlagsBits.Administrator;
     case bot.AVAILABILITY.BOT_MASTER:
-      return PermissionFlagsBits.ManageGuild
+      return PermissionFlagsBits.ManageGuild;
   }
 }
 
-export default command
+export default command;
