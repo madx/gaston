@@ -86,9 +86,9 @@ export default function createBot({
     async onReady() {
       bot.logger.info("core", "🤖 Logged in to Discord");
 
-      bot.guild = bot.discord.guilds.cache.first();
+      bot.guild = bot.discord.guilds.cache.get(bot.env.GUILD_ID);
 
-      if (!isBotReady(bot)) {
+      if (!isBotInGuild(bot)) {
         return bot.logger.fatal("core", "Unable to retrieve default guild");
       }
 
@@ -111,7 +111,7 @@ export default function createBot({
   return bot;
 }
 
-function isBotReady(bot: InitializingBot): bot is Bot {
+function isBotInGuild(bot: InitializingBot): bot is Bot {
   return bot.guild !== undefined;
 }
 
