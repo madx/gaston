@@ -27,7 +27,10 @@ export function createEnv(environment: HostEnv, logger: Logger): Env {
 
     logger.fatal(
       "core/createEnv",
-      `Missing environment ${pluralize("variable", missing.length)}: ${missing.join(", ")}`,
+      `Missing environment ${pluralize(
+        "variable",
+        missing.length,
+      )}: ${missing.join(", ")}`,
     );
   }
 
