@@ -21,10 +21,6 @@ export const AVAILABILITY = {
 
 type Availability = (typeof AVAILABILITY)[keyof typeof AVAILABILITY];
 
-// export const EVENT = {
-//   USER_POINTS_UPDATE: "player-score-update",
-// } as const;
-
 type InitializingBot = {
   // EVENT: typeof EVENT;
   AVAILABILITY: typeof AVAILABILITY;
@@ -37,8 +33,6 @@ type InitializingBot = {
   guild?: Guild;
   emojis: Record<string, Discord.GuildEmoji>;
   isBotMaster: (guildMember: GuildMember) => boolean;
-  // isAdmin: (guildMember: GuildMember) => boolean;
-  // isModerator: (guildMember: GuildMember) => boolean;
   onReady: () => Promise<void>;
 };
 
@@ -56,7 +50,6 @@ export default function createBot({
   logger,
 }: CreateBotDependencies) {
   const bot: InitializingBot = {
-    // EVENT,
     AVAILABILITY,
     discord,
     env,
@@ -70,18 +63,6 @@ export default function createBot({
     isBotMaster(guildMember: GuildMember) {
       return guildMember.id === bot.env.BOT_MASTER_ID;
     },
-    // isAdmin(guildMember: GuildMember) {
-    //   return (
-    //     bot.isBotMaster(guildMember) ||
-    //     guildMember.roles.cache.has(bot.roles.admin.id)
-    //   );
-    // },
-    // isModerator(guildMember: GuildMember) {
-    //   return (
-    //     bot.isAdmin(guildMember) ||
-    //     guildMember.roles.cache.has(bot.roles.mod.id)
-    //   );
-    // },
 
     async onReady() {
       bot.logger.info("core", "🤖 Logged in to Discord");
@@ -94,8 +75,6 @@ export default function createBot({
 
       try {
         await syncEmojis(bot);
-        // await registerNamedChannels(bot);
-        // await registerNamedRoles(bot);
         await registerCommands(bot);
         await registerWorkflows(bot);
       } catch (error) {
@@ -144,50 +123,6 @@ async function syncEmojis(bot: Bot) {
     {},
   );
 }
-
-// async function registerNamedChannels(bot: Bot) {
-//   bot.logger.info("core", "Registering named channels...");
-//   const { data: namedChannels, error } = await bot.db
-//     .from("namedChannels")
-//     .select();
-//
-//   if (!namedChannels?.length) {
-//     bot.logger.fatal("core", "No named channels found, aborting", error);
-//   }
-//
-//   for (const namedChannel of namedChannels) {
-//     const channel = await bot.guild.channels.fetch(namedChannel.channelId);
-//
-//     if (!channel) {
-//       bot.logger.fatal(
-//         "core",
-//         `Unable to fetch channel ${namedChannel.shortName}`,
-//       );
-//     }
-//
-//     bot.channels[namedChannel.shortName] = channel as TextChannel;
-//   }
-// }
-//
-// async function registerNamedRoles(bot: Bot) {
-//   bot.logger.info("core", "Registering named roles...");
-//
-//   const { data: namedRoles } = await bot.db.from("namedRoles").select();
-//
-//   if (namedRoles === null) {
-//     return;
-//   }
-//
-//   for (const namedRole of namedRoles) {
-//     const role = await bot.guild.roles.fetch(namedRole.roleId);
-//
-//     if (!role) {
-//       bot.logger.fatal("core", `Unable to fetch role ${namedRole.shortName}`);
-//     }
-//
-//     bot.roles[namedRole.shortName] = role;
-//   }
-// }
 
 async function registerCommands(bot: Bot) {
   bot.logger.info("core", "Registering commands...");
