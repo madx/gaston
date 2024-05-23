@@ -5,6 +5,7 @@ const REQUIRED_ENVIRONMENT_VARIABLES = [
   "BOT_MASTER_ID",
   "GUILD_ID",
   "DISCORD_API_TOKEN",
+  "STARBOARD_CHANNEL_ID"
 ] as const;
 
 type HostEnv = Record<string, string | undefined>;

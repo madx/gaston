@@ -1,9 +1,14 @@
-import { Message, MessageReaction, PartialMessageReaction, TextChannel } from "discord.js";
+import {
+  EmbedBuilder,
+  Message,
+  MessageReaction,
+  PartialMessageReaction,
+  TextChannel,
+} from "discord.js";
 import { Bot } from "../bot";
 import { departialize } from "../discord";
 
-const STARBOARD_CHANNEL_ID = "starboard_channel_id";
-const STAR_EMOJIS = ["🔖", "🔥", "❤️", "⭐"];
+const STAR_EMOJIS = ["🔖", "🔥", "❤️", "⭐", "💜"];
 const REQUIRED_COUNT = 5;
 
 export default async function reactions(bot: Bot) {
@@ -21,27 +26,41 @@ function handleReaction(bot: Bot) {
     const message = await departialize(partialMessage);
     const isInGuildChannel = message.guild === bot.guild;
 
-    if (isInGuildChannel && STAR_EMOJIS.includes(messageReaction.emoji.name)) {
+    if (
+      isInGuildChannel &&
+      STAR_EMOJIS.includes(messageReaction.emoji.name ?? "")
+    ) {
       await checkAndAddToStarboard(bot, message);
     }
   };
 }
 
 async function checkAndAddToStarboard(bot: Bot, message: Message) {
-  let totalCount = 0;
+  const totalCount = STAR_EMOJIS.map(
+    (emoji) => message.reactions.cache.get(emoji)?.count ?? 0,
+  ).reduce((total, count) => total + count);
 
-  for (const emoji of STAR_EMOJIS) {
-    const reaction = message.reactions.cache.get(emoji);
-    if (reaction) {
-      totalCount += reaction.count;
-    }
+  const starboardChannel = message.guild?.channels.cache.get(
+    bot.env.STARBOARD_CHANNEL_ID,
+  ) as TextChannel;
+
+  if (totalCount < REQUIRED_COUNT || starboardChannel === null) {
+    return;
   }
 
-  if (totalCount >= REQUIRED_COUNT) {
-    const starboardChannel = message.guild?.channels.cache.get(STARBOARD_CHANNEL_ID) as TextChannel;
-    if (starboardChannel) {
-      await starboardChannel.send(`⭐ **${message.author.username}**: ${message.content}\n${message.url}`);
-      bot.logger.info("starboard", `${message.author.username}'s message added to starboard`);
-    }
-  }
+  const embed = new EmbedBuilder()
+    .setColor(0xf9f06b)
+    .setURL(message.url)
+    .setAuthor({
+      name: message.author.displayName,
+      iconURL: message.author.avatarURL() ?? undefined,
+    })
+    .setDescription(message.content);
+
+  await starboardChannel.send({ embeds: [embed] });
+
+  bot.logger.info(
+    "starboard",
+    `${message.author.username}'s message added to starboard`,
+  );
 }
