@@ -8,7 +8,7 @@ import {
 import { Bot } from "../bot";
 import { departialize } from "../discord";
 
-const STAR_EMOJIS = ["🔖", "🔥", "❤️", "⭐", "💜", "🩵"];
+const STAR_EMOJIS = ["🔖", "🔥", "❤️", "⭐", "💜", "🩵", "👀"];
 const REQUIRED_COUNT = 5;
 
 export default async function reactions(bot: Bot) {
