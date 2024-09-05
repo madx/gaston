@@ -8,10 +8,10 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@typescript-eslint/eslint-plugin": "^7.6.0",
-    "@typescript-eslint/parser": "^7.6.0",
-    "eslint": "^9.0.0",
-    "lint-staged": "^15.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.0.0-alpha.10",
+    "@typescript-eslint/parser": "^8.0.0-alpha.10",
+    "eslint": "^9.3.0",
+    "lint-staged": "^15.2.4",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4"
@@ -22,8 +22,9 @@
   "dependencies": {
     "bufferutil": "^4.0.8",
     "dicebag": "^0.1.2",
-    "discord.js": "^14.14.1",
-    "utf-8-validate": "^6.0.3",
+    "discord.js": "^14.15.2",
+    "pocketbase": "^0.21.2",
+    "utf-8-validate": "^6.0.4",
     "zlib-sync": "^0.1.9"
   },
   "prettier": {

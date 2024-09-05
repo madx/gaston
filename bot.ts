@@ -6,6 +6,7 @@ import Discord, {
   TextChannel,
 } from "discord.js";
 import { EventEmitter } from "node:events";
+import PocketBase from "pocketbase";
 import * as commands from "./commands";
 import { BotCommand } from "./commands";
 import { Env } from "./env";
@@ -22,8 +23,8 @@ export const AVAILABILITY = {
 type Availability = (typeof AVAILABILITY)[keyof typeof AVAILABILITY];
 
 type InitializingBot = {
-  // EVENT: typeof EVENT;
   AVAILABILITY: typeof AVAILABILITY;
+  db: PocketBase;
   discord: Discord.Client;
   env: Env;
   logger: Logger;
@@ -39,18 +40,16 @@ type InitializingBot = {
 type Bot = Required<InitializingBot>;
 
 interface CreateBotDependencies {
+  db: PocketBase;
   discord: Discord.Client;
   env: Env;
   logger: Logger;
 }
 
-export default function createBot({
-  discord,
-  env,
-  logger,
-}: CreateBotDependencies) {
+export function createBot({ db, discord, env, logger }: CreateBotDependencies) {
   const bot: InitializingBot = {
     AVAILABILITY,
+    db,
     discord,
     env,
     logger,
@@ -68,6 +67,12 @@ export default function createBot({
       bot.logger.info("core", "🤖 Logged in to Discord");
 
       bot.guild = bot.discord.guilds.cache.get(bot.env.GUILD_ID);
+
+      const namedChannels = await bot.db
+        .collection("namedChannels")
+        .getFullList();
+
+      console.log(namedChannels);
 
       if (!isBotInGuild(bot)) {
         return bot.logger.fatal("core", "Unable to retrieve default guild");
