@@ -1,10 +1,11 @@
-import type { Logger } from "./logger";
-import { pick, pluralize } from "./utils";
+import { type Logger } from "./logger.ts";
+import { pick, pluralize } from "./utils.ts";
 
 const REQUIRED_ENVIRONMENT_VARIABLES = [
   "BOT_MASTER_ID",
   "GUILD_ID",
   "DISCORD_API_TOKEN",
+  "DATABASE_URL",
 ] as const;
 
 type HostEnv = Record<string, string | undefined>;

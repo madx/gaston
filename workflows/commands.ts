@@ -1,6 +1,6 @@
-import { Interaction } from "discord.js";
-import { Bot } from "../bot";
-import { BotCommand } from "../commands";
+import { type Interaction } from "discord.js";
+import { type Bot } from "../bot.ts";
+import { type BotCommand } from "../commands/index.ts";
 
 const LOG_SCOPE = "workflows/commands";
 

@@ -1,6 +1,10 @@
-import { Message, MessageReaction, PartialMessageReaction } from "discord.js";
-import { Bot } from "../bot";
-import { departialize } from "../discord";
+import {
+  type Message,
+  type MessageReaction,
+  type PartialMessageReaction,
+} from "discord.js";
+import { type Bot } from "../bot.ts";
+import { departialize } from "../discord.ts";
 
 const PIN_EMOJI = "📌";
 

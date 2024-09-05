@@ -1,4 +1,4 @@
-import { EmbedBuilder, Message } from "discord.js";
+import { EmbedBuilder, type Message } from "discord.js";
 
 export function digits(n: number): number {
   return 1 + Math.floor(Math.log10(n));

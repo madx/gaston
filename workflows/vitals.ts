@@ -1,5 +1,5 @@
-import { Bot } from "../bot";
-import { pick } from "../utils";
+import { type Bot } from "../bot.ts";
+import { pick } from "../utils.ts";
 
 const LOG_SCOPE = "workflow/vitals";
 

@@ -2,7 +2,8 @@ import type {
   ApplicationCommandOptionData,
   ChatInputCommandInteraction,
 } from "discord.js";
-import { AVAILABILITY, Bot } from "../bot";
+import type { Bot } from "../bot.ts";
+import { AVAILABILITY } from "../bot.ts";
 
 type BotCommand = {
   name: string;
@@ -14,7 +15,7 @@ type BotCommand = {
 
 type BotCommandBuilder = (bot: Bot) => BotCommand;
 
-export { default as deploy } from "./deploy";
-export { default as roll } from "./roll";
-export { default as say } from "./say";
+export { default as deploy } from "./deploy.ts";
+export { default as roll } from "./roll.ts";
+export { default as say } from "./say.ts";
 export type { BotCommand, BotCommandBuilder };

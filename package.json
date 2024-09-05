@@ -3,18 +3,17 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun run index.ts",
-    "dev": "bun run --hot index.ts"
+    "start": "node --experimental-transform-types --env-file=.env index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@typescript-eslint/eslint-plugin": "^7.6.0",
-    "@typescript-eslint/parser": "^7.6.0",
-    "eslint": "^9.0.0",
-    "lint-staged": "^15.2.2",
-    "nodemon": "^3.1.0",
-    "prettier": "^3.2.5",
-    "prettier-plugin-organize-imports": "^3.2.4"
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
+    "eslint": "^9.9.1",
+    "lint-staged": "^15.2.10",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -22,8 +21,9 @@
   "dependencies": {
     "bufferutil": "^4.0.8",
     "dicebag": "^0.1.2",
-    "discord.js": "^14.14.1",
-    "utf-8-validate": "^6.0.3",
+    "discord.js": "^14.16.1",
+    "pocketbase": "^0.21.5",
+    "utf-8-validate": "^6.0.4",
     "zlib-sync": "^0.1.9"
   },
   "prettier": {
