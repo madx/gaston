@@ -1,6 +1,6 @@
 import { parse, pool } from "dicebag";
 import { ApplicationCommandOptionType } from "discord.js";
-import { BotCommandBuilder } from ".";
+import { type BotCommandBuilder } from "./index.ts";
 
 const command: BotCommandBuilder = function roll(bot) {
   return {

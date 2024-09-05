@@ -1,7 +1,7 @@
 import { PermissionFlagsBits } from "discord.js";
-import { Availability, Bot } from "../bot";
-import { pick } from "../utils";
-import { BotCommandBuilder } from "./";
+import { type Availability, type Bot } from "../bot.ts";
+import { pick } from "../utils.ts";
+import { type BotCommandBuilder } from "./index.ts";
 
 const command: BotCommandBuilder = function deploy(bot) {
   return {
@@ -31,7 +31,7 @@ const command: BotCommandBuilder = function deploy(bot) {
   };
 };
 
-// TODO: This is not really suited everywhere, it would be better to comeup with something simpler/more configuratble
+// TODO: This is not really suited everywhere, it would be better to comeup with something simpler/more configurable
 function convertAvailabilityToDefaultMemberPermissions(
   bot: Bot,
   availability: Availability,

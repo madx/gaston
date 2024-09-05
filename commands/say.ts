@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionType, ChannelType } from "discord.js";
-import { BotCommandBuilder } from ".";
+import { type BotCommandBuilder } from "./index.ts";
 
 const command: BotCommandBuilder = function say(bot) {
   return {

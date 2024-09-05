@@ -1,17 +1,17 @@
 import Discord, {
   Collection,
   EmbedBuilder,
-  Guild,
-  GuildMember,
-  TextChannel,
+  type Guild,
+  type GuildMember,
+  type TextChannel,
 } from "discord.js";
 import { EventEmitter } from "node:events";
 import PocketBase from "pocketbase";
-import * as commands from "./commands";
-import { BotCommand } from "./commands";
-import { Env } from "./env";
-import { DISCORD_COLORS, LogEvent, Logger } from "./logger";
-import * as workflows from "./workflows";
+import * as commands from "./commands/index.ts";
+import { type BotCommand } from "./commands/index.ts";
+import { type Env } from "./env.ts";
+import { DISCORD_COLORS, type LogEvent, type Logger } from "./logger.ts";
+import * as workflows from "./workflows/index.ts";
 
 export const AVAILABILITY = {
   PUBLIC: "public",
