@@ -2,6 +2,8 @@ import { parse, pool } from "dicebag";
 import { ApplicationCommandOptionType } from "discord.js";
 import { type BotCommandBuilder } from "./index.ts";
 
+const MAX_EXPRESSION_LENGTH = 30;
+
 const command: BotCommandBuilder = function roll(bot) {
   return {
     name: "roll",
@@ -20,11 +22,21 @@ const command: BotCommandBuilder = function roll(bot) {
       const expression = interaction.options.getString("expression", true);
 
       try {
-        const roll = pool(
-          parse(
-            expression.replace("F", "3-2"), // Handle Fudge dice
-          ),
+        if (
+          expression.match(/\d{3}d/) ||
+          expression.length > MAX_EXPRESSION_LENGTH
+        ) {
+          await interaction.reply({
+            content: `Nah, too many dice here :person_shrugging:`,
+            ephemeral: true,
+          });
+          return;
+        }
+
+        const dice = parse(
+          expression.replace("F", "3-2"), // Handle Fudge dice
         );
+        const roll = pool(dice);
         const sum = roll.reduce((sum: number, roll: number) => sum + roll, 0);
         const list = roll.map((d: number) => `**\` ${d} \`**`).join(" ");
         const prefix = `🎲 **Rolling ${expression}:**`;
